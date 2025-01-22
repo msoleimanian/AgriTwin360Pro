@@ -46,15 +46,17 @@ def authenticate(username, password):
 
 
 # --- Register User ---
-def register_user(username, password):
+def register_user(username, password, email, phone, purpose):
     users_df = load_csv('users')
     # Ensure 'id' column exists, and handle it if missing
     if 'id' not in users_df.columns:
         users_df['id'] = range(1, len(users_df) + 1)  # Assign sequential IDs if missing
 
-    # Check if the username already exists
+    # Check if the username or email already exists
     if username in users_df['username'].values:
-        return False  # Username exists
+        return False, "Username already exists."
+    if email in users_df['email'].values:
+        return False, "Email already registered."
 
     # Hash the password
     hashed_password = hash_password(password)
@@ -66,13 +68,17 @@ def register_user(username, password):
     new_user = pd.DataFrame({
         'id': [new_user_id],
         'username': [username],
-        'password': [hashed_password]
+        'password': [hashed_password],
+        'email': [email],
+        'phone': [phone],
+        'purpose': [purpose]
     })
 
     updated_users_df = pd.concat([users_df, new_user], ignore_index=True)
     save_csv(updated_users_df, 'users')
 
-    return True
+    return True, "User registered successfully!"
+
 
 
 # --- Add Farm ---
@@ -202,12 +208,18 @@ with tab2:
     new_username = st.text_input("New Username", placeholder="Choose a username")
     new_password = st.text_input("New Password", placeholder="Choose a password", type="password")
     confirm_password = st.text_input("Confirm Password", placeholder="Confirm your password", type="password")
+    email = st.text_input("Email", placeholder="Enter your email")
+    phone = st.text_input("Phone Number", placeholder="Enter your phone number")
+    purpose = st.text_area("Purpose of Use", placeholder="Briefly explain why you want to use the platform")
+
     if st.button("Register"):
-        if new_password == confirm_password and new_username:
-            if register_user(new_username, new_password):
-                st.success(f"User '{new_username}' registered successfully!")
+        if new_password == confirm_password and new_username and email and phone and purpose:
+            success, message = register_user(new_username, new_password, email, phone, purpose)
+            if success:
+                st.success(message)
                 st.info("Go to the Login tab to access your dashboard.")
             else:
-                st.error(f"Username '{new_username}' is already taken. Please choose another.")
+                st.error(message)
         else:
-            st.error("Passwords do not match or username is missing.")
+            st.error("All fields are required, and passwords must match.")
+
