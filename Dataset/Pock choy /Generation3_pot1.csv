@@ -1,0 +1,10 @@
+subpotnumber,longestleaf,plantheight,leafcount,status
+SubPot1,104.0,148.0,7.0,Bad
+SubPot2,106.0,145.0,7.0,Bad
+SubPot3,102.0,143.0,7.0,Bad
+SubPot4,101.0,150.0,7.0,Bad
+SubPot5,104.0,138.0,7.0,Normal
+SubPot6,103.0,144.0,7.0,Good
+SubPot7,105.0,137.0,7.0,Bad
+SubPot8,100.0,144.0,6.0,Bad
+SubPot9,110.0,137.0,7.0,Good

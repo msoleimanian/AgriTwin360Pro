@@ -1,0 +1,2 @@
+id,user_id,farm_name,location,crop_type,description,created_at,updated_at
+1,1,Farm 1,Test Location,Wheat,Test Description,2025-01-08 14:22:37.805350,2025-01-08 14:22:37.805350
