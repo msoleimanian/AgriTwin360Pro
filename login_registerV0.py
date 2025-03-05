@@ -178,7 +178,7 @@ if ss.authenticated:
     st.stop()  # Stop so that only home page is shown
 
 # Login/Register page
-st.markdown("<h1 style='text-align: center;'>Welcome to Agro Pluse Twin Hub</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>Welcome to AgriTwin 360 Pro</h1>", unsafe_allow_html=True)
 st.markdown("<h4>Login or Register to Access Your Dashboard</h4>", unsafe_allow_html=True)
 
 tab1, tab2 = st.tabs(["🔑 Login", "📝 Register"])
